@@ -27,7 +27,7 @@ class TestCalculatorAPI:
         with allure.step("Verify response body"):
             assert response.text.strip() == expected
 
-    @allure.story("Division two numbers")
+    @allure.story("Divide two numbers")
     @allure.severity(allure.severity_level.NORMAL)
     @pytest.mark.parametrize("num1,num2,expected", [
         (4,2,"<h1>2.0</h1>"),
@@ -42,7 +42,7 @@ class TestCalculatorAPI:
         with allure.step("Verify response body"):
             assert response.text.strip() == expected
 
-    @allure.story("Dividing two numbers negative scenario")
+    @allure.story("Divide two numbers negative scenario")
     @allure.severity(allure.severity_level.CRITICAL)
     @pytest.mark.parametrize("num1,num2,expected", [
         (4,0,"<h1>Internal Server Error</h1>"),
@@ -71,7 +71,7 @@ class TestCalculatorAPI:
         with allure.step("Verify response body"):
             assert response.text.strip() == expected
 
-    @allure.story("Multiple two numbers")
+    @allure.story("Multiply two numbers")
     @allure.severity(allure.severity_level.NORMAL)
     @pytest.mark.parametrize("num1,num2,expected", [
         (4,2,"<h1>8</h1>"),
@@ -103,3 +103,4 @@ class TestCalculatorAPI:
             assert response.status_code == 200
         with allure.step("Verify response body"):
             assert response.text.strip() == expected
+# TODO вынести повторяющуюя логику?
