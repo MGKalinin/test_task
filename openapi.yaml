@@ -1,0 +1,169 @@
+openapi: 3.0.3
+info:
+  title: WEB Calculator
+  version: '1.0'
+tags:
+  - name: concate
+    description: concatanate numbers
+  - name: division
+    description: division numbers
+  - name: subtract
+    description: subtract numbers
+  - name: multiple
+    description: multiple numbers
+  - name: exponent
+    description: exponent numbers
+paths:
+  /concate/{num1}/{num2}:
+    get:
+      tags:
+        - concate
+      parameters:
+        - name: num1
+          in: path
+          description: number
+          required: true
+          schema:
+            type: number
+            format: int64
+            example: 12
+        - name: num2
+          in: path
+          description: number
+          required: true
+          schema:
+            type: number
+            format: int64
+            example: 22
+      responses:
+        '200':
+          content:
+            application/html:
+              schema:
+                $ref: '#/components/schemas/Concate'
+  /division/{num1}/{num2}:
+    get:
+      tags:
+        - division
+      parameters:
+        - name: num1
+          in: path
+          description: number
+          required: true
+          schema:
+            type: number
+            format: int64
+            example: 12
+        - name: num2
+          in: path
+          description: number
+          required: true
+          schema:
+            type: number
+            format: int64
+            example: 2
+      responses:
+        '200':
+          content:
+            application/html:
+              schema:
+                $ref: '#/components/schemas/Division'
+  /subtract/{num1}/{num2}:
+    get:
+      tags:
+        - subtract
+      parameters:
+        - name: num1
+          in: path
+          description: number
+          required: true
+          schema:
+            type: number
+            format: int64
+            example: 6
+        - name: num2
+          in: path
+          description: number
+          required: true
+          schema:
+            type: number
+            format: int64
+            example: 3
+      responses:
+        '200':
+          content:
+            application/html:
+              schema:
+                $ref: '#/components/schemas/Subtract'
+  /multiple/{num1}/{num2}:
+    get:
+      tags:
+        - multiple
+      parameters:
+        - name: num1
+          in: path
+          description: number
+          required: true
+          schema:
+            type: number
+            format: int64
+            example: 4
+        - name: num2
+          in: path
+          description: number
+          required: true
+          schema:
+            type: number
+            format: int64
+            example: 3
+      responses:
+        '200':
+          content:
+            application/html:
+              schema:
+                $ref: '#/components/schemas/Multiple'
+  /exponent/{num1}/{num2}:
+    get:
+      tags:
+        - exponent
+      parameters:
+        - name: num1
+          in: path
+          description: number
+          required: true
+          schema:
+            type: number
+            format: int64
+            example: 4
+        - name: num2
+          in: path
+          description: number
+          required: true
+          schema:
+            type: number
+            format: int64
+            example: 2
+      responses:
+        '200':
+          content:
+            application/html:
+              schema:
+                $ref: '#/components/schemas/Exponent'
+
+components:
+  schemas:
+    Concate:
+      type: string
+      example: '34'
+    Subtract:
+      type: string
+      example: '3'
+    Division:
+      type: string
+      example: '6'
+    Multiple:
+      type: string
+      example: '12'
+    Exponent:
+      type: string
+      example: '8'
