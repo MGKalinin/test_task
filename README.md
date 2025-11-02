@@ -15,8 +15,13 @@
 
 
 ## Запуск с Allure 
-### Шаг 1: Запуск тестов   
+ 
+### Шаг 1.a: Удалить предыдущие отчёты- если существуют
 >```bash
+> rm -rf ./allure-results/*
+>```
+>### Шаг 1: Запуск тестов  
+> ```bash
 > pytest tests/ --alluredir=./allure-results
 >```   
 
