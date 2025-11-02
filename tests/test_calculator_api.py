@@ -1,6 +1,6 @@
 import allure
 import pytest
-import requests
+from helpers.api_client import send_calculator_request
 
 
 @allure.feature("WEB Calculator API")
@@ -15,17 +15,7 @@ class TestCalculatorAPI:
         (-6,-7,"<h1>-6-7</h1>"),
     ])
     def test_concate(self, base_url,num1, num2, expected):
-        url=f"{base_url}/concate/{num1}/{num2}"
-        with allure.step(f"Send GET request to {url}"): # Использовал шаги allure -
-                                                        # делают отчёт более читаемым:
-                                                        # каждый этап виден в отчёте;
-                                                        # при падении — понятно
-                                                        # на каком действии произошла ошибка.
-            response = requests.get(url)
-        with allure.step("Verify status code is 200"):
-            assert response.status_code == 200
-        with allure.step("Verify response body"):
-            assert response.text.strip() == expected
+        send_calculator_request(base_url, "concate", num1, num2, expected_status=200, expected_body=expected)
 
     @allure.story("Divide two numbers")
     @allure.severity(allure.severity_level.NORMAL)
@@ -34,13 +24,7 @@ class TestCalculatorAPI:
         (9,3,"<h1>3.0</h1>"),
     ])
     def test_division(self, base_url, num1, num2, expected):
-        url=f"{base_url}/division/{num1}/{num2}"
-        with allure.step(f"Send GET request to {url}"):
-            response = requests.get(url)
-        with allure.step("Verify status code is 200"):
-            assert response.status_code == 200
-        with allure.step("Verify response body"):
-            assert response.text.strip() == expected
+        send_calculator_request(base_url, "division", num1, num2, expected_status=200, expected_body=expected)
 
     @allure.story("Divide two numbers negative scenario")
     @allure.severity(allure.severity_level.CRITICAL)
@@ -48,11 +32,7 @@ class TestCalculatorAPI:
         (4,0,"<h1>Internal Server Error</h1>"),
     ])
     def test_division_negative(self, base_url, num1, num2, expected):
-        url=f"{base_url}/division/{num1}/{num2}"
-        with allure.step(f"Send GET request to {url}"):
-            response = requests.get(url)
-        with allure.step("Verify status code is 500"):
-            assert response.status_code == 500
+        response = send_calculator_request(base_url, "division", num1, num2, expected_status=500)
         with allure.step("Verify response body"):
             assert expected in response.text
 
@@ -63,13 +43,7 @@ class TestCalculatorAPI:
         (9,3,"<h1>6</h1>"),
     ])
     def test_subtract(self, base_url, num1, num2, expected):
-        url=f"{base_url}/subtract/{num1}/{num2}"
-        with allure.step(f"Send GET request to {url}"):
-            response = requests.get(url)
-        with allure.step("Verify status code is 200"):
-            assert response.status_code == 200
-        with allure.step("Verify response body"):
-            assert response.text.strip() == expected
+        send_calculator_request(base_url, "subtract", num1, num2, expected_status=200, expected_body=expected)
 
     @allure.story("Multiply two numbers")
     @allure.severity(allure.severity_level.NORMAL)
@@ -79,13 +53,7 @@ class TestCalculatorAPI:
         (0,5,"<h1>0</h1>"),
     ])
     def test_multiple(self, base_url, num1, num2, expected):
-        url=f"{base_url}/multiple/{num1}/{num2}"
-        with allure.step(f"Send GET request to {url}"):
-            response = requests.get(url)
-        with allure.step("Verify status code is 200"):
-            assert response.status_code == 200
-        with allure.step("Verify response body"):
-            assert response.text.strip() == expected
+        send_calculator_request(base_url, "multiple", num1, num2, expected_status=200, expected_body=expected)
 
     @allure.story("Exponent two numbers")
     @allure.severity(allure.severity_level.NORMAL)
@@ -96,11 +64,4 @@ class TestCalculatorAPI:
         (0,5,"<h1>0</h1>"),
     ])
     def test_exponent(self, base_url, num1, num2, expected):
-        url=f"{base_url}/exponent/{num1}/{num2}"
-        with allure.step(f"Send GET request to {url}"):
-            response = requests.get(url)
-        with allure.step("Verify status code is 200"):
-            assert response.status_code == 200
-        with allure.step("Verify response body"):
-            assert response.text.strip() == expected
-# TODO вынести повторяющуюя логику?
+        send_calculator_request(base_url, "exponent", num1, num2, expected_status=200, expected_body=expected)
