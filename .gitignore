@@ -213,3 +213,5 @@ __marimo__/
 allure-results/
 
 *.env
+
+probe/
