@@ -50,10 +50,25 @@ class TestCalculatorAPI:
     @allure.story("Exponentiate two numbers")
     @allure.severity(allure.severity_level.NORMAL)
     @pytest.mark.parametrize("num1,num2,expected", [
+        # Базовые случаи
         (4,2,"<h1>16</h1>"),
         (5,3,"<h1>125</h1>"),
         (6,0,"<h1>1</h1>"),
         (0,5,"<h1>0</h1>"),
+        # Положительное в отрицательной степени
+        (2, -3, "<h1>0.125</h1>"),
+        (10, -2, "<h1>0.01</h1>"),
+        # Отрицательное в положительной степени
+        (-2, 3, "<h1>-8</h1>"),
+        (-3, 2, "<h1>9</h1>"),
+        (-2, 5, "<h1>-32</h1>"),
+        # Отрицательное в отрицательной степени
+        (-2, -3, "<h1>-0.125</h1>"),
+        (-10, -2, "<h1>0.01</h1>"),
+        # Крайние случаи
+        (1, -5, "<h1>1</h1>"),
+        (-1, 3, "<h1>-1</h1>"),
+        (-1, 4, "<h1>1</h1>"),
     ])
     def test_exponent(self, base_url, num1, num2, expected):
         send_calculator_request(base_url, "exponent", num1, num2, expected_status=200, expected_body=expected)
